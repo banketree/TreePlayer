@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TreePlayer.iml" filepath="$PROJECT_DIR$/TreePlayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ijkplayer/ijkplayer.iml" filepath="$PROJECT_DIR$/ijkplayer/ijkplayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ijkplayer-armv7a/ijkplayer-armv7a.iml" filepath="$PROJECT_DIR$/ijkplayer-armv7a/ijkplayer-armv7a.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libtreeplayer/libtreeplayer.iml" filepath="$PROJECT_DIR$/libtreeplayer/libtreeplayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libtreeplayer/treeplayer2.iml" filepath="$PROJECT_DIR$/libtreeplayer/treeplayer2.iml" />
+    </modules>
+  </component>
+</project>

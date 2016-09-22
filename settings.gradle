@@ -1,0 +1,1 @@
+include ':app',':libtreeplayer', ':ijkplayer', ':ijkplayer-armv7a'
