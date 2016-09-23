@@ -12,24 +12,23 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.eotu.testtreeplayer.bean.LiveBean;
-import com.eotu.testtreeplayer.module.ApiServiceUtils;
 import com.eotu.testtreeplayer.utlis.MediaUtils;
-import com.eotu.treeplayer.listener.OnShowThumbnailListener;
-import com.eotu.treeplayer.widget.PlayStateParams;
-import com.eotu.treeplayer.widget.PlayerView;
+import com.eotu.treeplayer.VideoView;
+import com.eotu.treeplayer.core.PlayStateParams;
 
 import java.util.List;
 
 
 public class PlayerLiveActivity extends Activity {
 
-    private PlayerView player,player1,player2;
     private Context mContext;
-    private View rootView;
     private List<LiveBean> list;
     private String url = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
     private String title = "标题";
     private PowerManager.WakeLock wakeLock;
+    private VideoView mPlayer1, mPlayer2, mPlayer3;
+
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -38,13 +37,14 @@ public class PlayerLiveActivity extends Activity {
 //                url = list.get(1).getLiveStream();
 //                title = list.get(1).getNickname();
 //            }
-            player.setPlaySource(url)
-                    .startPlay();
-            player1.setPlaySource(url)
-                    .startPlay();
-            player2.setPlaySource(url)
-                    .startPlay();
 
+            mPlayer1.setVideoPath(url);
+            mPlayer2.setVideoPath(url);
+            mPlayer3.setVideoPath(url);
+
+            mPlayer1.start();
+            mPlayer2.start();
+            mPlayer3.start();
         }
     };
 
@@ -52,68 +52,16 @@ public class PlayerLiveActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = this;
-        rootView = getLayoutInflater().from(this).inflate(R.layout.player_view_player, null);
-        setContentView(rootView);
+        setContentView(R.layout.activity_h);
 
         /**常亮*/
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "liveTAG");
         wakeLock.acquire();
 
-        player = new PlayerView(this, rootView,"video_view")
-                .setTitle(title)
-                .setScaleType(PlayStateParams.fitparent)
-                .hideMenu(true)
-                .hideSteam(true)
-                .setForbidDoulbeUp(true)
-                .hideCenterPlayer(true)
-                .hideControlPanl(true)
-                .showThumbnail(new OnShowThumbnailListener() {
-                    @Override
-                    public void onShowThumbnail(ImageView ivThumbnail) {
-//                        Glide.with(mContext)
-//                                .load("http://pic2.nipic.com/20090413/406638_125424003_2.jpg")
-//                                .placeholder(R.color.cl_default)
-//                                .error(R.color.cl_error)
-//                                .into(ivThumbnail);
-                    }
-                });
-        player1 = new PlayerView(this, rootView,"video_view1")
-                .setTitle(title)
-                .setScaleType(PlayStateParams.fitparent)
-                .hideMenu(true)
-                .hideSteam(true)
-                .setForbidDoulbeUp(true)
-                .hideCenterPlayer(true)
-                .hideControlPanl(true)
-                .showThumbnail(new OnShowThumbnailListener() {
-                    @Override
-                    public void onShowThumbnail(ImageView ivThumbnail) {
-//                        Glide.with(mContext)
-//                                .load("http://pic2.nipic.com/20090413/406638_125424003_2.jpg")
-//                                .placeholder(R.color.cl_default)
-//                                .error(R.color.cl_error)
-//                                .into(ivThumbnail);
-                    }
-                });
-        player2 = new PlayerView(this, rootView,"video_view2")
-                .setTitle(title)
-                .setScaleType(PlayStateParams.fitparent)
-                .hideMenu(true)
-                .hideSteam(true)
-                .setForbidDoulbeUp(true)
-                .hideCenterPlayer(true)
-                .hideControlPanl(true)
-                .showThumbnail(new OnShowThumbnailListener() {
-                    @Override
-                    public void onShowThumbnail(ImageView ivThumbnail) {
-//                        Glide.with(mContext)
-//                                .load("http://pic2.nipic.com/20090413/406638_125424003_2.jpg")
-//                                .placeholder(R.color.cl_default)
-//                                .error(R.color.cl_error)
-//                                .into(ivThumbnail);
-                    }
-                });
+        mPlayer1 = (VideoView) findViewById(R.id.VideoView1);
+        mPlayer2 = (VideoView) findViewById(R.id.VideoView2);
+        mPlayer3 = (VideoView) findViewById(R.id.VideoView3);
 
         new Thread() {
             @Override
@@ -129,33 +77,32 @@ public class PlayerLiveActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (player != null) {
-            player.onPause();
+        if (mPlayer1 != null) {
+            mPlayer1.onPause();
+        }
+        if (mPlayer2 != null) {
+            mPlayer2.onPause();
+        }
+        if (mPlayer3 != null) {
+            mPlayer3.onPause();
         }
 
-        if (player1 != null) {
-            player1.onPause();
-        }
-
-        if (player2 != null) {
-            player2.onPause();
-        }
         MediaUtils.muteAudioFocus(mContext, true);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (player != null) {
-            player.onResume();
+        if (mPlayer1 != null) {
+            mPlayer1.onResume();
         }
 
-        if (player1 != null) {
-            player1.onResume();
+        if (mPlayer2 != null) {
+            mPlayer2.onResume();
         }
 
-        if (player2 != null) {
-            player2.onResume();
+        if (mPlayer3 != null) {
+            mPlayer3.onResume();
         }
         MediaUtils.muteAudioFocus(mContext, false);
         if (wakeLock != null) {
@@ -166,40 +113,26 @@ public class PlayerLiveActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (player != null) {
-            player.onDestroy();
+        if (mPlayer1 != null) {
+            mPlayer1.stopPlayback();
         }
 
-        if (player1 != null) {
-            player1.onDestroy();
+        if (mPlayer2 != null) {
+            mPlayer2.stopPlayback();
         }
 
-        if (player2 != null) {
-            player2.onDestroy();
+        if (mPlayer3 != null) {
+            mPlayer3.stopPlayback();
         }
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (player != null) {
-            player.onConfigurationChanged(newConfig);
-        }
-
-        if (player1 != null) {
-            player1.onConfigurationChanged(newConfig);
-        }
-
-        if (player2 != null) {
-            player2.onConfigurationChanged(newConfig);
-        }
     }
 
     @Override
     public void onBackPressed() {
-        if (player != null && player.onBackPressed()) {
-            return;
-        }
         super.onBackPressed();
         if (wakeLock != null) {
             wakeLock.release();
