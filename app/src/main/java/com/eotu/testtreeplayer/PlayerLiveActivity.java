@@ -23,7 +23,7 @@ public class PlayerLiveActivity extends Activity {
 
     private Context mContext;
     private List<LiveBean> list;
-    private String url = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
+    private String url = "rtmp://live.hkstv.hk.lxdns.com/live/hks";
     private String title = "标题";
     private PowerManager.WakeLock wakeLock;
     private VideoView mPlayer1, mPlayer2, mPlayer3;
@@ -43,8 +43,8 @@ public class PlayerLiveActivity extends Activity {
             mPlayer3.setVideoPath(url);
 
             mPlayer1.start();
-            mPlayer2.start();
-            mPlayer3.start();
+//            mPlayer2.start();
+//            mPlayer3.start();
         }
     };
 

@@ -15,3 +15,11 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+#ijkplayer
+-keep class tv.danmaku.ijk.media.player.** {*; }
+-keepclasseswithmembernames class tv.danmaku.ijk.media.player.IjkMediaPlayer{
+native ;
+}
+-keepclasseswithmembernames class tv.danmaku.ijk.media.player.ffmpeg.FFmpegApi{
+native ;
+}
