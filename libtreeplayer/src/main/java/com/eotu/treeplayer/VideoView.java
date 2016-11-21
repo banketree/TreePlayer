@@ -1066,4 +1066,8 @@ public class VideoView extends FrameLayout implements MediaController.MediaPlaye
             }
         }
     }
+
+    public IMediaPlayer getMediaPlayer() {
+        return mMediaPlayer;
+    }
 }
